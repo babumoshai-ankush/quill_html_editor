@@ -335,7 +335,14 @@ class ToolBarState extends State<ToolBar> {
     if (widget.padding != null) {
       _buttonPadding = widget.padding!;
     }
-    if (widget.toolBarConfig == null || widget.toolBarConfig!.isEmpty) {
+    buildToolbarOption(widget.toolBarConfig);
+    super.initState();
+  }
+
+  // This function can be use to rebuild option at run time
+  void buildToolbarOption(List<ToolBarStyle>? toolBarConfig) {
+    _toolbarList.clear();
+    if (toolBarConfig == null || toolBarConfig.isEmpty) {
       for (var style in ToolBarStyle.values) {
         _toolbarList.add(ToolBarItem(
           activeIconColor: widget.activeIconColor!,
@@ -347,7 +354,7 @@ class ToolBarState extends State<ToolBar> {
         ));
       }
     } else {
-      for (var style in widget.toolBarConfig!) {
+      for (var style in toolBarConfig) {
         _toolbarList.add(ToolBarItem(
             activeIconColor: widget.activeIconColor!,
             iconColor: widget.iconColor!,
@@ -357,7 +364,6 @@ class ToolBarState extends State<ToolBar> {
             padding: _buttonPadding));
       }
     }
-    super.initState();
   }
 
   @override
